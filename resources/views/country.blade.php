@@ -26,6 +26,7 @@ $paginator_lenght = $count
 @php $pages_min = 1; @endphp
 @endif
 <link rel="stylesheet" href="/css/bootstrap.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
 <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-4 mt-4 container">
@@ -113,8 +114,56 @@ $paginator_lenght = $count
             </table>
         </div>
     <div class="col-6">
-<img src="{{ $country->Image2 }}" style="height:300px"/>
-    </div>
+        <div class="row justify-content-center align-items-center">
+            <img src="{{ $country->Image2 }}" style="height:300px"/>
+        </div>
+        <div class="mt-4 row justify-content-center align-items-center">
+
+
+                <div class="container"> <canvas id="myChart" class="chartjs"></canvas></div>
+            </div>
+            
+            
+            @php $arraylanguages = [];
+            $arraypourcentages = [];
+            @endphp
+            @foreach ($countrylanguage as $cl) 
+               @php $arraylanguages[] = $cl->Language; @endphp
+            @endforeach
+            @foreach ($countrylanguage as $cl)
+             @php $arraypourcentages[] = intval($cl->Percentage); @endphp
+            @endforeach
+            
+            
+            <script>
+                let myChart = document.getElementById('myChart');
+                let myPieChart = new Chart(myChart, {
+                    type: 'pie',
+                    data: {
+                        labels: <?= json_encode($arraylanguages) ?>,
+                        datasets: [{
+                            label: 'Population',
+                            data: <?= json_encode($arraypourcentages) ?>,
+                            backgroundColor: [
+                                'rgba(255, 50, 100, 0.6)',
+                                'rgba(54, 162, 235, 0.6)',
+                                'rgba(255, 206, 86, 0.6)',
+                                'rgba(75, 192, 192, 0.6)',
+                                'rgba(153, 102, 102, 0.6)',
+                                'rgba(255, 159, 64, 0.6)',
+                                'rgba(255, 99, 132, 0.6)'
+                            ],
+                        }],
+                    },
+                    options: {
+                    },
+                });
+            </script>
+            
+            
+       </div>     
+  
+    
 </div>
 
 <h4 class="text-secondary text-center"> Nombre de villes : <span class="text-primary font-weight-bold">{{ $cities->count() }}</span></h4>

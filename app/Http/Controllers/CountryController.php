@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\City;
 use App\Country;
+use App\CountryLanguage;
 
 class CountryController extends Controller
 {
@@ -38,6 +39,7 @@ class CountryController extends Controller
         $country = Country::find($id);
         $count = $country->cities()->count();
         $cities = $country->cities;
-        return view('country', compact('country', 'count', 'cities'));
+        $countrylanguage = CountryLanguage::where('CountryCode', $country->Code)->get();
+        return view('country', compact('country', 'count', 'cities', 'countrylanguage'));
     }
 }
