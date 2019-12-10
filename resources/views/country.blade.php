@@ -167,7 +167,7 @@ $paginator_lenght = $count
 </div>
 
 <h4 class="text-secondary text-center"> Nombre de villes : <span class="text-primary font-weight-bold">{{ $cities->count() }}</span></h4>
-<table class="table table-striped container mt-5">
+<table class="table container mt-5">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Nom</th>

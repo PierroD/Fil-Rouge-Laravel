@@ -21,5 +21,8 @@ Route::get('/country/{id}/cities', 'CountryController@getCitiesFromCountry')->wh
 Route::get('/country/{id}', 'CountryController@getCountry')->where("id", "[0-9]{1,}");
 
 
+Route::post('/result', 'CountryController@getCitiesByCountryName');
+
+
 Route::get('/{continent}/countries', 'CountryController@getCountriesFromContinent')->where("name", "[a-zA-Z]{2,}");
 Route::get('/hello/{name}', 'GreetingController@sayHello')->where("name", "[a-zA-Z]{2,}");

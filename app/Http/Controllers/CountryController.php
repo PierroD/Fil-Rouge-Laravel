@@ -42,4 +42,12 @@ class CountryController extends Controller
         $countrylanguage = CountryLanguage::where('CountryCode', $country->Code)->get();
         return view('country', compact('country', 'count', 'cities', 'countrylanguage'));
     }
+
+    public function getCitiesByCountryName(Request $request)
+    {
+        $name = $request->input('Search');
+        $countries = Country::where('Name', $name)->get();
+        $cities = City::where('CoutnryCode', $countries[0]->Code)->get();
+        return view('result', compact('cities'));
+    }
 }
